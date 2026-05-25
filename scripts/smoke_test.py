@@ -241,9 +241,13 @@ def test_xhs_media_evidence_script_safety_contract() -> None:
     text = XHS_MEDIA_EVIDENCE_SCRIPT.read_text(encoding="utf-8")
     assert "ffprobe" in text
     assert "ffmpeg" in text
+    assert "@ffmpeg-installer/ffmpeg" in text
+    assert "@ffprobe-installer/ffprobe" in text
     assert "downloaded_temporary_deleted_after_run" in text
     assert "used_temporarily_redacted" in text
     assert "retained_files" in text
+    assert "finally" in text
+    assert "fs.rm(tempDir" in text
     assert "assertSafeResult" in text
 
 

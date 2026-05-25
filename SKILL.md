@@ -72,8 +72,9 @@ node scripts/xhs_media_evidence.mjs --url "http://xhslink.com/o/..."
 ```
 
 It requires `ffmpeg` and `ffprobe` on PATH or via `ffmpeg-static` /
-`ffprobe-static`. It downloads media only into a system temp directory, extracts
-safe audio/keyframe evidence, and deletes the temporary media unless
+`ffprobe-static` / `@ffmpeg-installer/ffmpeg` /
+`@ffprobe-installer/ffprobe`. It downloads media only into a system temp
+directory, extracts safe audio/keyframe evidence, and deletes the temporary media unless
 `--keep-temp` is explicitly set.
 
 ## Reading Rules / 读取规则

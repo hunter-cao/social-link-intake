@@ -28,9 +28,10 @@ Recommended chain:
 3. On Windows/OpenClaw, first run `scripts/xhs_public_probe.mjs` to confirm whether `noteData` and redacted stream metadata are present.
 4. If `noteData` is available, extract safe metadata, description, note type, topic tags, duration, media status, and redacted stream metadata.
 5. For image notes, download images only to `/private/tmp` or the Windows temp directory, build a temporary contact sheet, read the visual content, then delete the images/contact sheet.
-6. For videos, download media only to `/private/tmp` or the Windows temp directory. If an audio stream exists, run ASR and keep only segment count, hash, status, and paraphrased timeline notes. If no audio stream exists, use keyframes plus description/comment signals and mark `transcript: no_audio_stream`.
-7. Generate the durable `*-content-analysis-YYYY-MM-DD.md` file with `scripts/xhs_video_content_analysis.py` or an equivalent renderer.
-8. Delete temporary HTML, media, audio, transcripts, frames, and contact sheets before acceptance.
+6. For videos, run `scripts/xhs_media_evidence.mjs` when temporary media access is available. It downloads media only to `/private/tmp` or the Windows temp directory, uses ffprobe/ffmpeg to detect audio/video streams, extracts temporary keyframes/audio evidence, and deletes the files after the run.
+7. If an audio stream exists, run ASR and keep only segment count, hash, status, and paraphrased timeline notes. If no audio stream exists, use keyframes plus description/comment signals and mark `transcript: no_audio_stream`.
+8. Generate the durable `*-content-analysis-YYYY-MM-DD.md` file with `scripts/xhs_video_content_analysis.py` or an equivalent renderer.
+9. Delete temporary HTML, media, audio, transcripts, frames, and contact sheets before acceptance.
 
 ## Durable Output / 持久产物
 

@@ -64,6 +64,18 @@ The probe may be run on Windows without Python. It returns only redacted status,
 safe metadata, and whether stream metadata exists. It must not write HTML,
 signed media URLs, media files, frames, audio, or transcripts.
 
+When stream metadata exists and temporary media processing is allowed, use the
+media evidence extractor:
+
+```bash
+node scripts/xhs_media_evidence.mjs --url "http://xhslink.com/o/..."
+```
+
+It requires `ffmpeg` and `ffprobe` on PATH or via `ffmpeg-static` /
+`ffprobe-static`. It downloads media only into a system temp directory, extracts
+safe audio/keyframe evidence, and deletes the temporary media unless
+`--keep-temp` is explicitly set.
+
 ## Reading Rules / 读取规则
 
 - Treat WeChat extracted article text as readable evidence.

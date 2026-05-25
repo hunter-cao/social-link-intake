@@ -56,11 +56,20 @@ node scripts/xhs_public_probe.mjs --url "http://xhslink.com/o/example"
 
 The probe output is intentionally redacted and should only be used as routing evidence. If it reports stream metadata, the next stage can use temporary media download, ASR/no-audio detection, keyframe extraction, and then `xhs_video_content_analysis.py` to produce durable analysis.
 
+Extract temporary media evidence when `ffmpeg` / `ffprobe` are available:
+
+```bash
+node scripts/xhs_media_evidence.mjs --url "http://xhslink.com/o/example"
+```
+
+This downloads media only to the system temp directory, extracts safe audio/keyframe evidence, and deletes temporary files by default. Durable output contains hashes, counts, stream status, and next actions, not signed media URLs or media files.
+
 ## Validation / 验证
 
 ```bash
 python3 scripts/smoke_test.py
 node --check scripts/xhs_public_probe.mjs
+node --check scripts/xhs_media_evidence.mjs
 python3 -m py_compile scripts/social_link_intake.py scripts/xhs_video_content_analysis.py scripts/smoke_test.py
 ```
 
@@ -76,4 +85,3 @@ PYTHONPYCACHEPREFIX=/tmp/social-link-intake-pycache \
 Durable outputs may store canonical URLs, statuses, hashes, counts, summaries, and paraphrased evidence. They must not store platform credentials, full share queries, signed media URLs, raw chat history, downloaded media, or full transcripts.
 
 See [references/privacy-boundary.md](references/privacy-boundary.md).
-

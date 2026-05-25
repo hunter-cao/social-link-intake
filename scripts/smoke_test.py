@@ -13,6 +13,7 @@ from pathlib import Path
 SCRIPT_DIR = Path(__file__).resolve().parent
 INTAKE_SCRIPT = SCRIPT_DIR / "social_link_intake.py"
 XHS_PROBE_SCRIPT = SCRIPT_DIR / "xhs_public_probe.mjs"
+XHS_MEDIA_EVIDENCE_SCRIPT = SCRIPT_DIR / "xhs_media_evidence.mjs"
 XHS_RENDER_SCRIPT = SCRIPT_DIR / "xhs_video_content_analysis.py"
 SENSITIVE_NEEDLES = [
     "xsec_token=",
@@ -234,12 +235,25 @@ def test_xhs_public_probe_synthetic_html() -> None:
     assert "assertSafeResult" in text
 
 
+def test_xhs_media_evidence_script_safety_contract() -> None:
+    if not XHS_MEDIA_EVIDENCE_SCRIPT.exists():
+        raise AssertionError("missing xhs_media_evidence.mjs")
+    text = XHS_MEDIA_EVIDENCE_SCRIPT.read_text(encoding="utf-8")
+    assert "ffprobe" in text
+    assert "ffmpeg" in text
+    assert "downloaded_temporary_deleted_after_run" in text
+    assert "used_temporarily_redacted" in text
+    assert "retained_files" in text
+    assert "assertSafeResult" in text
+
+
 def main() -> int:
     test_cli_redacts_xhs_query()
     test_xhs_metadata_sanitizer()
     test_xhs_ephemeral_fetch_url_is_not_durable()
     test_xhs_video_content_renderer()
     test_xhs_public_probe_synthetic_html()
+    test_xhs_media_evidence_script_safety_contract()
     print("social-link-intake smoke tests passed")
     return 0
 

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Social Link Intake"
+  short_description: "Privacy-safe social link intake."
+  default_prompt: "Ingest these mobile-shared social links, extract only what is readable, flag blocked Xiaohongshu content, and prepare relevance-ready summaries."

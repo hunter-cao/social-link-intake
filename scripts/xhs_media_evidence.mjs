@@ -104,10 +104,18 @@ async function resolveToolPath(name, configured, required = true) {
       const value = require("ffmpeg-static");
       if (typeof value === "string") return value;
     } catch {}
+    try {
+      const value = require("@ffmpeg-installer/ffmpeg");
+      if (value?.path) return value.path;
+    } catch {}
   }
   if (name === "ffprobe") {
     try {
       const value = require("ffprobe-static");
+      if (value?.path) return value.path;
+    } catch {}
+    try {
+      const value = require("@ffprobe-installer/ffprobe");
       if (value?.path) return value.path;
     } catch {}
   }
